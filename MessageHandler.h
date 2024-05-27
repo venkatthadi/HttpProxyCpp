@@ -1,5 +1,5 @@
-#ifndef MESSAGE_HANDLER_H
-#define MESSAGE_HANDLER_H
+#ifndef MESSAGE_HANDLER
+#define MESSAGE_HANDLER
 
 #include <winsock2.h>
 

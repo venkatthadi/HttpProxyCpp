@@ -72,7 +72,7 @@ void ProxyServer::start() {
     while (true) {
         newsockfd = accept(sockfd, (struct sockaddr*)&client_addr, &cli_len);
         if (newsockfd == INVALID_SOCKET) {
-            std::cerr << "Server: accept failed: " << WSAGetLastError() << std::endl;
+            cerr << "Server: accept failed: " << WSAGetLastError() << endl;
             continue;
         }
         cout << "[+]client accepted." << endl;
@@ -140,7 +140,7 @@ void ProxyServer::handleClient(SOCKET client_sockfd) {
 
         const char* connect_response = "HTTP/1.1 200 Connection established\r\n\r\n";
         int n = send(client_sockfd, connect_response, strlen(connect_response), 0);
-        cout << n << endl;
+        // cout << n << endl;
         cout << "[+]response sent." << endl;
 
         MessageHandler messageHandler;
@@ -163,13 +163,13 @@ void ProxyServer::handleClient(SOCKET client_sockfd) {
 
         int res = getaddrinfo(host_buffer, "80", &hints, &result);
         if (res != 0) {
-            std::cerr << "getaddrinfo failed: " << gai_strerror(res) << std::endl;
+            cerr << "getaddrinfo failed: " << gai_strerror(res) << endl;
             return;
         }
 
         SOCKET serv_sockfd;
         if ((serv_sockfd = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
-            std::cerr << "Server: socket failed: " << WSAGetLastError() << std::endl;
+            cerr << "Server: socket failed: " << WSAGetLastError() << endl;
             freeaddrinfo(result);
             return;
         }
@@ -186,7 +186,7 @@ void ProxyServer::handleClient(SOCKET client_sockfd) {
         freeaddrinfo(result);
 
         if (send(serv_sockfd, newbuffer, bytes_received, 0) == SOCKET_ERROR) {
-            std::cerr << "Sending request failed: " << WSAGetLastError() << std::endl;
+            cerr << "Sending request failed: " << WSAGetLastError() << endl;
             closesocket(serv_sockfd);
             return;
         }

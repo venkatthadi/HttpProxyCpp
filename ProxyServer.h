@@ -1,5 +1,5 @@
-#ifndef PROXY_SERVER_H
-#define PROXY_SERVER_H
+#ifndef PROXY_SERVER
+#define PROXY_SERVER
 
 #include <winsock2.h>
 
